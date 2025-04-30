@@ -1,0 +1,17 @@
+name: profile Workflow
+
+on:
+  push:
+    branches:
+      - origin
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: "profile"
+        run: echo "profle updated!"
