@@ -48,7 +48,7 @@ jobs:
         #This is for test container
       - name: "testcontainer"
         run: |
-          go get github.com/testcontainers/testcontainers-go/modules/dind
+          go install github.com/testcontainers/testcontainers-go/modules/dind
           dindContainer, err := dind.Run(context.Background(), "docker:28.0.1-dind")
 
 
