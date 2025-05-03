@@ -41,7 +41,7 @@ jobs:
 
          #litting docker image
       - name: Lint Dockerfile with Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
+        uses: hadolint/hadolint-action@vlatest
         with:
           dockerfile: Dockerfile
 
