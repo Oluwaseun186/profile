@@ -36,11 +36,12 @@ jobs:
             -p "6831:6831/udp" -p "16686:16686" \
             --restart unless-stopped jaegertracing/all-in-one:latest
             docker buildx create --use \
-            --name mybuilder \
+            --name myjaeger \
             --driver docker-container \
             --driver-opt "network=host" \
             --driver-opt "env.JAEGER_TRACE=localhost:6831" \
             --driver-opt "env.JAEGER_SERVICE_NAME=profile" 
             docker buildx inspect --bootstrap
+            docker --debug buildx inspect myjaeger
       
 
