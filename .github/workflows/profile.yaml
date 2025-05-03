@@ -27,10 +27,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: "pushing docker image"
-        run: |
-          docker push oluwaseun7/profile:1.0.1
+        #This is for docker push
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6.6.0
+        with:
+          context: .
+          push: true
+          tags: oluwaseun7/profile:1.0.1
+        #run: |
+         # docker push oluwaseun7/profile:1.0.1
 
+        #This is jaeger monitoring an troubleshoot
       - name: "run jarger on docker"
         run: |
             docker run -d --name jaeger \
