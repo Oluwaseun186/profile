@@ -1,7 +1,6 @@
 services:
   web:
     build: .
-    command: npm start
     develop:
       watch:
         - action: sync
