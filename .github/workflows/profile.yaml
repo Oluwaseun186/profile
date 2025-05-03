@@ -8,10 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
 
     steps:
       - name: Checkout code
         uses: "actions/checkout@v4"
+      
 
       #build docker image
       - name: Build and push
@@ -45,11 +50,6 @@ jobs:
         with:
           dockerfile: Dockerfile
 
-        #This is for test container
-      - name: "testcontainer"
-        run: |
-          go install github.com/testcontainers/testcontainers-go/modules/dind@latest
-          dindContainer, err := dind.Run(context.Background(), "docker:28.0.1-dind")
 
 
         #This is jaeger monitoring an troubleshoot
@@ -66,6 +66,24 @@ jobs:
             --driver-opt "env.JAEGER_SERVICE_NAME=profile" 
             docker buildx inspect myjaeger
             docker --debug buildx inspect myjaeger
+  
 
-      
+
+  testcontainer:
+    needs: build  
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Enable Docker-in-Docker
+        run: |
+          sudo systemctl start docker
+          docker info
+
+      - name: Run tests
+        run: |
+          go mod tidy
 
