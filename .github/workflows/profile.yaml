@@ -41,7 +41,6 @@ jobs:
             --driver-opt "network=host" \
             --driver-opt "env.JAEGER_TRACE=localhost:6831" \
             --driver-opt "env.JAEGER_SERVICE_NAME=profile" 
-            docker buildx inspect --bootstrap
             docker --debug buildx inspect myjaeger
       
 
