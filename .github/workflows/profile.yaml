@@ -30,3 +30,17 @@ jobs:
         run: |
           docker push oluwaseun7/profile:1.0.1
 
+      - name: "run jarger on docker"
+        run: |
+            docker run -d --name jaeger \
+            -p "6831:6831/udp" -p "16686:16686" \
+            --restart unless-stopped jaegertracing/all-in-one:latest
+            docker buildx create --use \
+            --name mybuilder \
+            --driver docker-container \
+            --driver-opt "network=host" \
+            --driver-opt "env.JAEGER_TRACE=localhost:6831" \
+            --driver-opt "env.JAEGER_SERVICE_NAME=profile" 
+            docker buildx inspect --bootstrap
+      
+
