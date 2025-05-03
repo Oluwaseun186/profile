@@ -13,8 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: "profile"
+        run: echo "profle updated!"
+
       - name: Build and push
-        uses: docker/build-push-action@v6.6.0
+        id: docker_build
         run: |
           docker build -t --check oluwaseun7/profile:1.0.1 .
 
