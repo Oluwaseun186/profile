@@ -29,3 +29,4 @@ jobs:
       - name: "pushing docker image"
         run: |
           docker push profile:1.0.1
+
